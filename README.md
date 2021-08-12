@@ -22,9 +22,26 @@ Schema Design
   - To load the data I will be using the COPY statement.
   - I currently have it loaded in PGAdmin to test schema data types
 
-ex: COPY reviews(id,product_id,rating,date,summary,body,recommend,reported,reviewer_name,reviewer_email,response,helpfulness)
-   FROM 'filepath'
-   DELIMINTER ','
+COPY reviews(id,product_id,rating,date,summary,body,recommend,reported,reviewer_name,reviewer_email,response,helpfulness)
+   FROM '/Users/coreyrobinson/Desktop/CSVSDCReviews/reviews.csv'
+   DELIMITER ','
    CSV HEADER;
 
+
+COPY reviewPhoto(id,review_id,url)
+   FROM '/Users/coreyrobinson/Desktop/CSVSDCReviews/reviews_photos.csv'
+   DELIMITER ','
+   CSV HEADER;
+
+
+COPY characteristics(id,product_id,name)
+   FROM '/Users/coreyrobinson/Desktop/CSVSDCReviews/characteristics.csv'
+   DELIMITER ','
+   CSV HEADER;
+
+
+COPY characteristicsReviews(id,characteristics_id,review_id, value)
+   FROM '/Users/coreyrobinson/Desktop/CSVSDCReviews/characteristic_reviews.csv'
+   DELIMITER ','
+   CSV HEADER;
 

@@ -1,15 +1,10 @@
-
-createdb Review;
-
-psql Review;
-
 CREATE TABLE IF NOT EXISTS reviews (
   id SERIAL PRIMARY KEY,
   product_id INT,
   rating INT,
-  date INT,
-  summary varchar(60),
-  body varchar(1000),
+  date BIGINT,
+  summary varchar(255),
+  body text,
   recommend BOOLEAN,
   reported BOOLEAN,
   reviewer_name varchar(60),
@@ -19,20 +14,21 @@ CREATE TABLE IF NOT EXISTS reviews (
 );
 
 CREATE TABLE IF NOT EXISTS reviewPhoto (
-  id INT SERIAL PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   review_id INT NOT NULL REFERENCES reviews(id),
-  url varchar(50)
+  url varchar(255)
 );
 
 CREATE TABLE IF NOT EXISTS characteristics (
-  id INT SERIAL PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   product_id INT,
-  name varchar(8)
+  name varchar(25)
 );
 
 CREATE TABLE IF NOT EXISTS characteristicsReviews (
-  id INT SERIAL PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   characteristics_id INT NOT NULL REFERENCES characteristics(id),
-  review_id INT NOT NULL REFERENCES reviews(id)
+  review_id INT NOT NULL REFERENCES reviews(id),
+  value INT
 );
 
