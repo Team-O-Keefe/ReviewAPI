@@ -28,7 +28,3 @@ ex: COPY reviews(id,product_id,rating,date,summary,body,recommend,reported,revie
    CSV HEADER;
 
 
-Still being determined
-  - Combine the characteristic_reviews and characteristic CSV
-    - The characteristic_reviews is an associate table with characteristic_id and review_id , but we are only giving back
-      the total metaData
