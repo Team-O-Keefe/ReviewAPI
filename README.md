@@ -25,23 +25,24 @@ Schema Design
 COPY reviews(id,product_id,rating,date,summary,body,recommend,reported,reviewer_name,reviewer_email,response,helpfulness)
    FROM '/Users/coreyrobinson/Desktop/CSVSDCReviews/reviews.csv'
    DELIMITER ','
+   NULL as 'null'
    CSV HEADER;
-
+   CREATE INDEX product_idx ON reviews (product_id);
 
 COPY reviewPhoto(id,review_id,url)
    FROM '/Users/coreyrobinson/Desktop/CSVSDCReviews/reviews_photos.csv'
    DELIMITER ','
    CSV HEADER;
-
+   CREATE INDEX review_idx ON reviewPhoto (review_id);
 
 COPY characteristics(id,product_id,name)
    FROM '/Users/coreyrobinson/Desktop/CSVSDCReviews/characteristics.csv'
    DELIMITER ','
    CSV HEADER;
-
+   CREATE INDEX product_idex ON characteristics (product_id);
 
 COPY characteristicsReviews(id,characteristics_id,review_id, value)
    FROM '/Users/coreyrobinson/Desktop/CSVSDCReviews/characteristic_reviews.csv'
    DELIMITER ','
    CSV HEADER;
-
+   CREATE INDEX characteristics_idx ON characteristicsReviews(characteristics_id);
