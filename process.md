@@ -2,8 +2,18 @@
  [x] - load schemas into postgresql
  [x] - load csv data into schema
         -Data is loaded into pg admin
-        - last schema not loaded to terminal postgres
+        -Data is loaded into terminal psql
 
-    - set up server to talk to pgadmin
-    -
+ [x] - set up server to talk to pgadmin
+        - only using pgadmin for testing
+
+   ENDPOINTS
+  []   -GET /reviews query: product_id, page, count, sort
+  []   -GET /reviews/meta  query: product_id
+
+  []   -POST /reviews params: product_id, rating, summary, body, recommend, name, email, photos, characteristics
+
+  []   -PUT /reviews/:review_id/helpful params: review_id (increases  value)
+
+
 
