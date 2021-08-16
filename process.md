@@ -14,6 +14,7 @@
   []   -POST /reviews params: product_id, rating, summary, body, recommend, name, email, photos, characteristics
 
   [x]   -PUT /reviews/:review_id/helpful params: review_id (increases  value)
+         -PUT /reviews/:review_id/helpful params: review_id (increases  value)
 
 
    [] - move queries to model controller framework
