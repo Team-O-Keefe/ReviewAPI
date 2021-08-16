@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-shadow */
 /* eslint-disable camelcase */
 var db = require('../db');
@@ -85,7 +86,9 @@ module.exports = {
                 console.log('err on recommended, ', err);
                 callback(err, null);
               } else {
-                result.rows.length === 0 ? metaDataOutput.recommended = {} : metaDataOutput.recommended = result.rows[0].recommended;
+                result.rows.length === 0
+                  ? metaDataOutput.recommended = {}
+                  : metaDataOutput.recommended = result.rows[0].recommended;
                 callback(null, metaDataOutput);
               }
             });
@@ -99,6 +102,24 @@ module.exports = {
     const query = `UPDATE reviews
       SET
         helpfulness = helpfulness + 1
+      WHERE
+        id = ${review_id}`;
+
+    db.query(query, (err, result) => {
+      if (err) {
+        // console.log('error put', err);
+        callback(err, null);
+      } else {
+        // console.log('success put');
+        callback(null, result);
+      }
+    });
+  },
+  putReported: (reqParams, callback) => {
+    const { review_id } = reqParams;
+    const query = `UPDATE reviews
+      SET
+        reported = true
       WHERE
         id = ${review_id}`;
 
