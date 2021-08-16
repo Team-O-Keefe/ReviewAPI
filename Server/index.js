@@ -45,7 +45,7 @@ app.get('/api/reviews', (req, res) => {
       console.log('error get reviews,', err);
       res.end();
     } else {
-      console.log('success get reviews');
+      // console.log('success get reviews');
       res.send(result);
     }
   });
@@ -112,31 +112,55 @@ app.get('/api/reviews/meta', (req, res) => {
   //   }
   // });
 });
+app.post('/api/reviews', (req, res) => {
+  const {
+    product_id,
+    rating,
+    summary,
+    body,
+    recommend,
+    name,
+    email,
+    photos,
+    characteristics
+  } = req.body;
 
-app.put('/api/reviews/:review_id/helpful', (req, res) => {
-  // const { review_id } = req.params;
-  // const query = `UPDATE reviews
-  // SET
-  //   helpfulness = helpfulness + 1
-  // WHERE
-  //   id = ${review_id}`;
+  //insert into Review Table
+  const reviewInsertQuery = `INSERT INTO reviews (product_id, rating, date, summary, body, recommend, reported, reviewer_name, reviewer_email, response, helpfulness)
+  VALUES
+    (${product_id}, ${rating}, ${Date.now()}, ${summary}, ${body}, ${recommend}, false, ${name}, ${email}, null, 0)`;
+
+  const revPhotoInsertQuery = `INSERT INTO reviewPhoto (review_id, url)
+  VALUES
+  (SELECT id FROM reviews WHERE product_id = ${product_id})`
   // db.query(query, (err, result) => {
   //   if (err) {
-  //     console.log('error put', err);
+  //     console.log('error post', err);
   //   } else {
-  //     console.log('success put');
-  //     res.send(result);
+  //     res.send(result.rows);
   //   }
   // });
+});
+
+app.put('/api/reviews/:review_id/helpful', (req, res) => {
   reviewModel.putHelpfulness(req.params, (err, result) => {
     if (err) {
       res.end();
     } else {
-      res.sendStatus(201);
+      res.sendStatus(204);
     }
   });
 });
-// });
+
+app.put('/api/reviews/:review_id/report', (req, res) => {
+  reviewModel.putReported(req.params, (err, result) => {
+    if (err) {
+      res.end();
+    } else {
+      res.sendStatus(204);
+    }
+  });
+});
 
 app.listen(port, () => {
   console.log(`app listening at http://localhost:${port}`);
