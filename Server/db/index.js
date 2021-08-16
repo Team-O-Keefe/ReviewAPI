@@ -7,7 +7,7 @@ const pool = new Pool({
   database: "Review"
 })
 
-pool.connect()
+pool.connect();
 
 
 
