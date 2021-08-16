@@ -24,6 +24,7 @@ module.exports = {
         console.log('err on review query', err);
         callback(err, null);
       } else {
+        // console.log(result);
         callback(null, {
           product: product_id, count: count || 5, page: page || 1, results: result.rows
         });
