@@ -1,14 +1,17 @@
 /* eslint-disable brace-style */
 /* eslint-disable camelcase */
 var express = require('express');
-const morgan = require('morgan');
-const db = require('./db');
+// const morgan = require('morgan');
+// const db = require('./db');
 // require('newrelic');
 const reviewModel = require('./models/reviews');
+// const cluster = require('cluster');
+// const totalCPUs = require('os').cpus().length;
 var app = express();
 
 var port = 3000;
 // app.use(morgan('dev'));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
