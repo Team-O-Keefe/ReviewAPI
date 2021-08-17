@@ -4,10 +4,12 @@ var express = require('express');
 // const morgan = require('morgan');
 // const db = require('./db');
 // require('newrelic');
+const compression = require('compression');
 const reviewModel = require('./models/reviews');
-var app = express();
 
+var app = express();
 var port = 3000;
+app.use(compression());
 // app.use(morgan('dev'));
 
 app.use(express.json());
