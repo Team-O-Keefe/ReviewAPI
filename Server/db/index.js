@@ -1,21 +1,14 @@
 const { Pool } = require('pg');
+const key = require('../config.js');
 
 const pool = new Pool({
-  host: "localhost",
-  user: "coreyrobinson",
+  host: key.host,
+  user: key.user,
   port: 5432,
-  database: "Review",
+  database: "postgres",
+  password: key.password
 });
 
 pool.connect();
-// const pgp = require('pg-promise')();
-// const cn = {
-//   host: "localhost",
-//   user: "coreyrobinson",
-//   port: 5432,
-//   database: "Review",
-// };
-
-// const db = pgp(cn);
 
 module.exports = pool;
