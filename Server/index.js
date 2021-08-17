@@ -5,8 +5,6 @@ var express = require('express');
 // const db = require('./db');
 // require('newrelic');
 const reviewModel = require('./models/reviews');
-// const cluster = require('cluster');
-// const totalCPUs = require('os').cpus().length;
 var app = express();
 
 var port = 3000;
