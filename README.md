@@ -1,75 +1,24 @@
 # ReviewAPI
 
-ETL Process
-- First I'm going to figure out if I'm able to use PGAdmin to connect to a repo or if I will need to load the database in the repo through the command line.
+![javascript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+![node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Amazon AWS](https://img.shields.io/badge/Amazon_AWS-{232F3E}?style=for-the-badge&logo=amazonaws&logoColor=white)
+![NGINX](https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white)
+![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 
-- I loaded the data in PGAdmin to see if my original idea for column datatypes would be correct. For example the summary column in the business doc said the summary would have max chars of 60, however when setting a varchar(60) when loading the data in PG Admin it flagged an error as the field was actually longer than 60 chars. I want to minimize space taken up by unnecessary columns sizes so PG Admin was helpful in flagging this.
+##  Project Overview
+  - Take existing back-end infrastructure and convert to a microservice architecture.
+  - Handle 1k> request per second for all crud operations.
 
-Schema Design
-  - My Schemas are setup to match the CSVs as I will use my querying to get the relevant data sent back to the client.
+## Setup
+  - 4 servers running on AWS Micro Ec2 instances.
+  - 1 instance running NGINX with least connection load balancing, cacheing enabled.
+  - 1 instance hosting PostgreSQL database.
 
-- Extraction
-  - This is the data in the CSV files.
+## Testing Used
+   - K6 for local testing of queries.
+   - New Relic + Loader.io to test infrastructure under load.
 
-- Validation
-  - No unnecessary repeated columns were noticed.
-  - Foreign-Keys will have a NOT NULL property to ensure transactional integrity when there are edits to the table.
-  - Boolean data types for columns that only accept true/false
-  - Int column types for numbers , bigINT for date
-  - varchar for text columns
-
-- Loading
-  - To load the data I will be using the COPY statement.
-  - I currently have it loaded in PGAdmin to test schema data types
-
-COPY reviews(id,product_id,rating,date,summary,body,recommend,reported,reviewer_name,reviewer_email,response,helpfulness)
-   FROM '/Users/coreyrobinson/Desktop/CSVSDCReviews/reviews.csv'
-   DELIMITER ','
-   NULL as 'null'
-   CSV HEADER;
-   CREATE INDEX product_idx ON reviews (product_id);
-
-COPY reviewPhoto(id,review_id,url)
-   FROM '/Users/coreyrobinson/Desktop/CSVSDCReviews/reviews_photos.csv'
-   DELIMITER ','
-   CSV HEADER;
-   CREATE INDEX review_idx ON reviewPhoto (review_id);
-
-COPY characteristics(id,product_id,name)
-   FROM '/Users/coreyrobinson/Desktop/CSVSDCReviews/characteristics.csv'
-   DELIMITER ','
-   CSV HEADER;
-   CREATE INDEX product_idex ON characteristics (product_id);
-
-COPY characteristicsReviews(id,characteristics_id,review_id, value)
-   FROM '/Users/coreyrobinson/Desktop/CSVSDCReviews/characteristic_reviews.csv'
-   DELIMITER ','
-   CSV HEADER;
-   CREATE INDEX characteristics_idx ON characteristicsReviews(characteristics_id);
-
------- AWS ------
-
-COPY reviews(id,product_id,rating,date,summary,body,recommend,reported,reviewer_name,reviewer_email,response,helpfulness)
-   FROM '/home/ubuntu/reviewCSV/CSVSDCReviews/reviews.csv'
-   DELIMITER ','
-   NULL as 'null'
-   CSV HEADER;
-   CREATE INDEX product_idx ON reviews (product_id);
-
-COPY reviewPhoto(id,review_id,url)
-   FROM '/home/ubuntu/reviewCSV/CSVSDCReviews/reviews_photos.csv'
-   DELIMITER ','
-   CSV HEADER;
-   CREATE INDEX review_idx ON reviewPhoto (review_id);
-
-COPY characteristics(id,product_id,name)
-   FROM '/home/ubuntu/reviewCSV/CSVSDCReviews/characteristics.csv'
-   DELIMITER ','
-   CSV HEADER;
-   CREATE INDEX product_idex ON characteristics (product_id);
-
-COPY characteristicsReviews(id,characteristics_id,review_id, value)
-   FROM '/home/ubuntu/reviewCSV/CSVSDCReviews/characteristic_reviews.csv'
-   DELIMITER ','
-   CSV HEADER;
-   CREATE INDEX characteristics_idx ON characteristicsReviews(characteristics_id);
+## Results
+![8k](docs/8kresult.png)
