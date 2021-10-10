@@ -9,7 +9,7 @@
 
 ##  Project Overview
   - Take existing back-end infrastructure and convert to a microservice architecture.
-  - Handle 1k> request per second for all crud operations.
+  - Handle over 1k request per second for all crud operations.
 
 ## Setup
   - 4 servers running on AWS Micro Ec2 instances.
